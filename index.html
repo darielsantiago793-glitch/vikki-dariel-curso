@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Испанский до автоматизма — за 2 недели на уровень</title>
+  <link rel="canonical" href="https://habla-vikki-dariel-ru.ru/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Español</a>
+      <nav class="nav">
+        <a href="#audio-preview">Прослушать</a>
+        <a href="#como-funciona">Как это работает</a>
+        <a href="#que-dentro">Что внутри</a>
+        <a href="#niveles">Уровни</a>
+        <a href="info.html">Оплата и поддержка</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="container hero-inner">
+        <p class="hero-badge">Аудиокурс • Носитель языка</p>
+        <h1 class="hero-title">Испанский до автоматизма за 2 недели на уровень</h1>
+        <p class="hero-subtitle">800+ самых частых разговорных фраз<br>Без грамматики. Без заучивания. Просто слушаешь.</p>
+        <a href="#" class="btn btn-primary btn-hero btn-to-pay" data-level="A1" data-price="999">Начать с A1 — 999 ₽</a>
+        <p class="hero-social">Большинство начинают с A1</p>
+        <p class="hero-note">Подходит даже если раньше ничего не получалось</p>
+      </div>
+    </section>
+
+    <!-- Подходит, если (со мной всё ок) -->
+    <section class="section section-fits">
+      <div class="container">
+        <h2 class="section-title section-title-sm">Подходит, если:</h2>
+        <ul class="fits-list">
+          <li>ты уже пробовал учить язык и бросал</li>
+          <li>забываешь слова</li>
+          <li>боишься говорить</li>
+          <li>не любишь грамматику</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Аудио-превью (обязательно) -->
+    <section id="audio-preview" class="section section-audio">
+      <div class="container">
+        <div class="audio-block">
+          <p class="audio-caption">Так будет звучать испанский в твоих наушниках</p>
+          <div class="audio-player-wrap">
+            <audio id="preview-audio" class="audio-player" controls preload="metadata">
+              <source src="preview.mp3" type="audio/mpeg">
+              <source src="preview.ogg" type="audio/ogg">
+              Твой браузер не поддерживает аудио.
+            </audio>
+          </div>
+          <p class="audio-hint">10–15 сек. Прослушай перед тем как решить.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Плавающая кнопка -->
+    <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+      <div class="sticky-cta-inner">
+        <span class="sticky-cta-text">Включить испанский — от 999 ₽</span>
+        <a href="#" class="btn btn-primary btn-sm btn-to-pay" data-level="A1" data-price="999">Начать с A1</a>
+      </div>
+    </div>
+
+    <!-- Почему грамматика не нужна -->
+    <section id="como-funciona" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Почему грамматика здесь не нужна</h2>
+        <div class="prose-block">
+          <p class="lead">Язык — это не правила.<br>Язык — это повторы.</p>
+          <p>Подсознание запоминает не таблицы, а частотные связки слов. Когда ты слышишь одну и ту же конструкцию десятки раз — мозг перестаёт переводить и начинает реагировать.</p>
+          <p><strong>Ты не вспоминаешь правило.<br>Ты просто понимаешь.</strong></p>
+        </div>
+        <!-- Картинка мозга: положи свой файл в brain.png (или brain.jpg и поправь href) -->
+        <div class="brain-block">
+          <div class="brain-inner">
+            <div class="brain-visual">
+              <svg class="brain-cutout" viewBox="0 0 900 500" role="img" aria-label="Мозг — каждое слово откладывается в подсознании" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Пытаемся убрать «белую рамку/шахматку» (если она запечена в картинку):
+                       делаем альфу по яркости и отсекаем почти-белое -->
+                  <filter id="brainCutoutFilter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                    <!-- luminance -> alpha -->
+                    <feColorMatrix in="SourceGraphic" type="matrix" values="
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0.2126 0.7152 0.0722 0 0" result="lumaAlpha"/>
+                    <!-- отсекаем почти-белое: чем ярче пиксель, тем прозрачнее -->
+                    <feComponentTransfer in="lumaAlpha" result="alpha">
+                      <feFuncA type="linear" slope="-12" intercept="11.2"/>
+                    </feComponentTransfer>
+                    <!-- слегка смягчаем края -->
+                    <feGaussianBlur in="alpha" stdDeviation="0.6" result="alphaSoft"/>
+                    <!-- применяем альфу к исходнику -->
+                    <feComposite in="SourceGraphic" in2="alphaSoft" operator="in" result="cut"/>
+                    <feMerge>
+                      <feMergeNode in="cut"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <image href="brain.png" x="0" y="0" width="900" height="500" preserveAspectRatio="xMidYMid meet" filter="url(#brainCutoutFilter)"/>
+              </svg>
+            </div>
+            <p class="brain-text">Каждое слово откладывается в подсознании</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Что внутри курса -->
+    <section id="que-dentro" class="section">
+      <div class="container">
+        <h2 class="section-title">Что ты реально слушаешь</h2>
+        <ul class="feature-list">
+          <li><span class="feature-icon">◆</span> 800–1000+ разговорных фраз</li>
+          <li><span class="feature-icon">◆</span> Часто используемые конструкции</li>
+          <li><span class="feature-icon">◆</span> Повторы с разной интонацией</li>
+          <li><span class="feature-icon">◆</span> Реальная живая речь, не учебник</li>
+          <li><span class="feature-icon">◆</span> Носитель языка (Куба) + живой формат</li>
+        </ul>
+        <blockquote class="blockquote">Это не аудиокнига.<br>Это языковая среда в наушниках.</blockquote>
+      </div>
+    </section>
+
+    <!-- Таймлайн 2 недели -->
+    <section class="section section-timeline">
+      <div class="container">
+        <h2 class="section-title">Путь за 2 недели</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-days">День 1–3</span>
+            <span class="timeline-label">Привыкание к звучанию</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-days">День 4–7</span>
+            <span class="timeline-label">Начинаешь понимать фразы</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-days">День 8–14</span>
+            <span class="timeline-label">Ответы приходят быстрее</span>
+          </div>
+        </div>
+        <p class="timeline-note">1–2 раза в день, можно фоном. Слушай и повторяй — не нужно учить и анализировать.</p>
+      </div>
+    </section>
+
+    <!-- Уровни и цены (только 2 варианта) -->
+    <section id="niveles" class="section section-pricing">
+      <div class="container">
+        <p class="ritual-text">Надень наушники. Включай каждый день. Не напрягайся.</p>
+        <h2 class="section-title">1 уровень или всё выгоднее</h2>
+        <p class="pricing-trust">Оплата один раз — доступ навсегда</p>
+        <div class="pricing-grid pricing-grid-simple">
+          <article class="price-card price-card-main">
+            <h3>1 уровень</h3>
+            <p>A1 — Старт. 2 недели.<br>Привыкание к звучанию языка</p>
+            <p class="price-amount">999 ₽</p>
+            <a href="#" class="btn btn-pay btn-primary btn-start btn-to-pay" data-level="A1" data-price="999">Начать с A1</a>
+            <p class="price-after-click js-after-pay" id="after-pay-msg" aria-hidden="true">Доступ к аудио приходит сразу после оплаты</p>
+          </article>
+          <article class="price-card price-card-featured">
+            <h3>Взять всё выгоднее</h3>
+            <p>A1 + A2 + B1. 6 недель.<br>2400+ фраз. Экономия 500 ₽</p>
+            <p class="price-wrap">
+              <span class="price-old">2 997 ₽</span>
+              <span class="price-amount">2 499 ₽</span>
+            </p>
+            <a href="#" class="btn btn-pay btn-primary btn-start btn-to-pay btn-pulse" data-level="full" data-price="2499">Включить испанский — 2 499 ₽</a>
+            <p class="price-after-click js-after-pay" aria-hidden="true">Доступ к аудио приходит сразу после оплаты</p>
+          </article>
+        </div>
+        <p class="other-levels">Нужен только A2 или B1? <a href="#niveles" class="link-levels" id="show-other-levels">Показать A2 и B1</a></p>
+        <div class="pricing-grid pricing-grid-other" id="other-levels" hidden>
+          <article class="price-card price-card-small">
+            <h3>A2 — 2 недели</h3>
+            <p class="price-amount">999 ₽</p>
+            <a href="#" class="btn btn-pay btn-outline btn-start btn-to-pay" data-level="A2" data-price="999">Начать с A2</a>
+          </article>
+          <article class="price-card price-card-small">
+            <h3>B1 — 2 недели</h3>
+            <p class="price-amount">999 ₽</p>
+            <a href="#" class="btn btn-pay btn-outline btn-start btn-to-pay" data-level="B1" data-price="999">Начать с B1</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Доверие -->
+    <section class="section section-trust">
+      <div class="container">
+        <div class="trust-micro">
+          <p>Это не магия и не гипноз.<br>Это эффект повторов и нейропривыкания.</p>
+        </div>
+        <div class="trust-block">
+          <h2>Важное уточнение</h2>
+          <p>Это не замена классическому обучению.<br><strong>Это база для автоматизма.</strong></p>
+          <p>Грамматика становится понятной после, когда язык уже звучит в голове.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Почему мы -->
+    <section class="section section-why">
+      <div class="container">
+        <h2 class="section-title">Почему именно мы</h2>
+        <ul class="why-list">
+          <li><strong>Носитель языка</strong></li>
+          <li>Реальный путь обучения, без идеальности</li>
+          <li>Ты не «ученик», ты участник процесса</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Финальный призыв -->
+    <section class="section section-cta">
+      <div class="container">
+        <h2 class="cta-title">Испанский не учат — к нему привыкают.</h2>
+        <p class="cta-sub">Выбери уровень и начни сегодня.</p>
+        <a href="#" class="btn btn-primary btn-large btn-to-pay" data-level="A1" data-price="999">Начать с A1</a>
+      </div>
+    </section>
+
+    <!-- Модальное окно: переход к оплате PayAnyWay (замените data-pay-base-url на вашу ссылку PayAnyWay) -->
+    <div class="payment-modal" id="payment-modal" aria-hidden="true" role="dialog" aria-labelledby="payment-modal-title" data-pay-base-url="#">
+      <div class="payment-modal-backdrop" id="payment-modal-backdrop"></div>
+      <div class="payment-modal-box">
+        <h2 class="payment-modal-title" id="payment-modal-title">Перейти к оплате</h2>
+        <p class="payment-modal-text">Нажмите «Перейти к оплате», чтобы перейти на защищённую страницу PayAnyWay.</p>
+        <a href="#" id="payment-goto-btn" class="btn btn-primary btn-pay-goto">Перейти к оплате</a>
+        <p class="payment-modal-docs">
+          <a href="polozhenie.html" target="_blank" rel="noopener noreferrer">📄 Документ «Положение»</a><br>
+          <a href="soglasiye.html" target="_blank" rel="noopener noreferrer">📄 Документ «Согласие»</a>
+        </p>
+        <button type="button" class="payment-modal-close" id="payment-modal-close" aria-label="Закрыть">×</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p><a href="guide.html">Документация и руководство</a> · <a href="info.html">Оплата и поддержка</a></p>
+      <p>© Викки + Дариель — испанский до автоматизма · habla-vikki-dariel-ru.ru</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

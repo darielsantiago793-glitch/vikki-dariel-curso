@@ -93,6 +93,10 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
 }
+/* iOS/Android: fixed background может лагать/дёргаться */
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+}
 /* Удобные зоны нажатия на тач-устройствах */
 a, button { -webkit-tap-highlight-color: rgba(242, 107, 58, 0.2); }
 
@@ -153,7 +157,23 @@ a, button { -webkit-tap-highlight-color: rgba(242, 107, 58, 0.2); }
 }
 .header .nav a:hover { color: var(--color-indigo-alt); }
 @media (max-width: 600px) {
-  .header .nav { display: none; }
+  /* На телефонах меню не прячем: делаем горизонтальный скролл */
+  .header-inner { gap: 0.5rem; }
+  .header .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    max-width: 72vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  .header .nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .header .nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.55rem;
+    white-space: nowrap;
+  }
 }
 @media (min-width: 601px) and (max-width: 900px) {
   .header .nav a { font-size: 0.85rem; padding: 0.5rem 0.5rem; }

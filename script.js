@@ -1,6 +1,18 @@
 (function () {
   'use strict';
 
+  // ====== ССЫЛКИ НА ОПЛАТУ (ВСТАВЬ СЮДА СВОИ URL) ======
+  // Вставь реальные ссылки от платёжной системы (PayAnyWay/ЮKassa/CloudPayments и т.д.).
+  // Примеры (УДАЛИ примеры и вставь свои):
+  // 'https://pay.example.com/a1'
+  // Важно: оставляй кавычки.
+  var PAYMENT_LINKS = {
+    A1: 'https://self.payanyway.ru/17702375712469',   // оплата A1
+    A2: 'https://self.payanyway.ru/17702378879561',   // оплата A2
+    B1: 'https://self.payanyway.ru/17702380509345',   // оплата B1
+    full: 'https://self.payanyway.ru/17702382028236'  // оплата полного курса (A1+A2+B1)
+  };
+
   // Smooth scroll for anchor links (backup for older browsers)
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
@@ -47,14 +59,45 @@
 
   function openPaymentModal(level, price) {
     if (!paymentModal || !paymentGotoBtn) return;
+
+    // 1) Сначала берём ссылку из PAYMENT_LINKS
+    var key = (level || 'A1').toString();
+    var upper = key.toUpperCase();
+    var directUrl = PAYMENT_LINKS[key] || PAYMENT_LINKS[upper] || '#';
+
+    // 2) Если не задано — пробуем общий baseUrl из HTML
     var baseUrl = paymentModal.getAttribute('data-pay-base-url') || '#';
-    var href = baseUrl;
-    if (baseUrl.indexOf('?') !== -1) {
-      href = baseUrl + '&level=' + encodeURIComponent(level) + '&amount=' + encodeURIComponent(price);
-    } else if (baseUrl !== '#') {
-      href = baseUrl + '?level=' + encodeURIComponent(level) + '&amount=' + encodeURIComponent(price);
+    var href = directUrl !== '#' ? directUrl : baseUrl;
+
+    // 3) Если у тебя одна ссылка + параметры — добавляем level/amount (как было раньше)
+    if (href !== '#' && href.indexOf('level=') === -1 && href.indexOf('amount=') === -1) {
+      if (href.indexOf('?') !== -1) {
+        href = href + '&level=' + encodeURIComponent(level) + '&amount=' + encodeURIComponent(price);
+      } else {
+        href = href + '?level=' + encodeURIComponent(level) + '&amount=' + encodeURIComponent(price);
+      }
     }
-    paymentGotoBtn.setAttribute('href', href);
+
+    // 4) Если ссылка не настроена — покажем подсказку
+    var modalText = paymentModal.querySelector('.payment-modal-text');
+    if (href === '#') {
+      if (modalText) {
+        modalText.textContent = 'Ссылка на оплату ещё не настроена. Открой script.js и вставь ссылки в блок PAYMENT_LINKS (A1/A2/B1/full).';
+      }
+      paymentGotoBtn.setAttribute('href', '#');
+      paymentGotoBtn.setAttribute('aria-disabled', 'true');
+      paymentGotoBtn.classList.add('is-disabled');
+    } else {
+      if (modalText) {
+        modalText.textContent = 'Нажмите «Перейти к оплате», чтобы перейти на защищённую страницу оплаты.';
+      }
+      paymentGotoBtn.setAttribute('href', href);
+      paymentGotoBtn.removeAttribute('aria-disabled');
+      paymentGotoBtn.classList.remove('is-disabled');
+      paymentGotoBtn.setAttribute('target', '_blank');
+      paymentGotoBtn.setAttribute('rel', 'noopener noreferrer');
+    }
+
     paymentModal.classList.add('is-open');
     paymentModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -111,8 +154,30 @@
   var hero = document.querySelector('.hero');
   if (stickyCta && hero) {
     var heroHeight = hero.offsetHeight;
+    var footer = document.querySelector('.footer');
+    var footerIsVisible = false;
+
+    // Если футер попал в экран — прячем плавающую кнопку, чтобы она не перекрывала текст внизу
+    if (footer && 'IntersectionObserver' in window) {
+      var footerObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            footerIsVisible = entry.isIntersecting;
+          });
+          showSticky();
+        },
+        { rootMargin: '0px 0px 0px 0px', threshold: 0.01 }
+      );
+      footerObserver.observe(footer);
+    }
+
     var showSticky = function () {
       var scrolled = window.scrollY || window.pageYOffset;
+      if (footerIsVisible) {
+        stickyCta.classList.remove('is-visible');
+        stickyCta.setAttribute('aria-hidden', 'true');
+        return;
+      }
       if (scrolled > heroHeight * 0.5) {
         stickyCta.classList.add('is-visible');
         stickyCta.setAttribute('aria-hidden', 'false');
